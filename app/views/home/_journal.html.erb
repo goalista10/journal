@@ -1,2 +1,36 @@
-<%=current_user%>
-<%=user_session%>
+<%=current_user.email%>
+<%=current_user.categories%>
+
+<table class="table table-hover align-middle">
+  <thead>
+    <tr>
+      <th>categories</th>
+      <th>User ID</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% current_user.categories.each do |category| %>
+      <tr>
+        <td><%= category.name %></td>
+        <td><%= category.user_id %></td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h1>Add Category</h1>
+<%= form_with model: [current_user,current_user.categories.build], url: categories_path ,local: true do |form| %>
+  <div class="mb-3">
+    <%= form.label :name ,class:"form-label"%>
+    <%= form.text_field :name , class:"form-control"%>
+
+    <%= form.label :user_id ,class:"form-label"%>
+    <%= form.text_field :user_id , class:"form-control",value:current_user.id%>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
