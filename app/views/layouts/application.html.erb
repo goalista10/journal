@@ -19,7 +19,10 @@
 
   <body>
     <%=render "home/header"%>
-    <p class="notice"><%= notice %></p>
+    <%if notice%>
+      <p class="alert alert-warning alert-dismissible fade show" role="alert"><%= notice %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></p>
+    <%end%>
     <div class="container">
     <br/>
       <%= yield %>
