@@ -2,12 +2,29 @@ class CategoriesController < ApplicationController
     def create
         @create_category = current_user.categories.build(category_params)
         if @create_category.save
-            render "home/temp"
+            flash.notice = "Category Successfully created"
+            redirect_to :root 
+        end
     end
 
-end
+    def destroy
+        @to_be_deleted = current_user.categories.find(params[:id])
+        @to_be_deleted.destroy
+        redirect_to :root 
+    end
 
-private
+    def edit
+        @to_be_updated = current_user.categories.find(params[:id])
+        render "home/edit"
+    end
+
+    def update
+        current_user.categories.find(params[:id]).update(category_params)
+        flash.notice = "Category Successfully updated"
+        redirect_to :root 
+    end
+
+    private
     # Only allow a list of trusted parameters through.
     def category_params
       params.require(:category).permit(:name,:user_id)
