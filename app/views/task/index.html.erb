@@ -1,0 +1,32 @@
+<table class="table table-hover align-middle">
+  <thead>
+    <tr>
+      <th>Tasks</th>
+      <th>User ID</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @show_tasks.each do |tasks| %>
+      <tr>
+        <td><%= tasks.name %></td>
+        <td><%= tasks.category_id %></td>
+        <td><%= link_to 'Edit', edit_category_task_path(params[:category_id],tasks.id),class:"btn btn-warning btn-sm" %></td>
+        <td><%= link_to 'Destroy', category_task_path(params[:category_id],tasks.id), method: :delete, data: { confirm: 'Are you sure?' } ,class:"btn btn-danger btn-sm"%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h1>Add Task</h1>
+<%= form_with model: [@category,@build_task], url: category_tasks_path(params[:category_id]) ,local: true do |form| %>
+  <div class="mb-3">
+    <%= form.label :name ,class:"form-label"%>
+    <%= form.text_field :name , class:"form-control"%>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
