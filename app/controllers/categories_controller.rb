@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
     def create
         @create_category = current_user.categories.build(category_params)
         if @create_category.save
-            flash.notice = "Category Successfully created"
+            flash.notice = "Category created"
             redirect_to :root 
         end
     end
@@ -10,6 +10,7 @@ class CategoriesController < ApplicationController
     def destroy
         @to_be_deleted = current_user.categories.find(params[:id])
         @to_be_deleted.destroy
+        flash.notice = "Category deleted"
         redirect_to :root 
     end
 
@@ -20,7 +21,7 @@ class CategoriesController < ApplicationController
 
     def update
         current_user.categories.find(params[:id]).update(category_params)
-        flash.notice = "Category Successfully updated"
+        flash.notice = "Category updated"
         redirect_to :root 
     end
 

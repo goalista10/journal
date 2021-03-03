@@ -9,7 +9,7 @@ class TasksController < ApplicationController
     def create
         @create_task = current_user.categories.find(params[:category_id]).tasks.build(task_params)
         @create_task.save
-        flash.notice = "Task Successfully created"
+        flash.notice = "Task created"
         redirect_to category_tasks_path(params[:category_id])
     end
 
@@ -20,13 +20,14 @@ class TasksController < ApplicationController
 
     def update
         current_user.categories.find(params[:category_id]).tasks.find(params[:id]).update(task_params)
-        flash.notice = "Category Successfully updated"
+        flash.notice = "Task updated"
         redirect_to category_tasks_path
     end
 
     def destroy
         @to_be_deleted = current_user.categories.find(params[:category_id]).tasks.find(params[:id])
         @to_be_deleted.destroy
+        flash.notice = "Task deleted"
         redirect_to category_tasks_path
     end
 
