@@ -130,7 +130,7 @@ Rails.application.configure do
       :port => 587,
       :authentication => :plain,
       :domain => "gmail.com",
-      :user_name => "for.testing.ange@gmail.com",
-      :password => "testP@$$w0rd10!",
+      :user_name => ENV["MAILER_EMAIL"],
+      :password => ENV["MAILER_PASSWORD"],
     }
 end
