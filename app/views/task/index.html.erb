@@ -2,7 +2,6 @@
   <thead>
     <tr>
       <th>Tasks</th>
-      <th>User ID</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -11,7 +10,6 @@
     <% @show_tasks.each do |tasks| %>
       <tr>
         <td><%= tasks.name %></td>
-        <td><%= tasks.category_id %></td>
         <td><%= link_to 'Edit', edit_category_task_path(params[:category_id],tasks.id),class:"btn btn-warning btn-sm" %></td>
         <td><%= link_to 'Destroy', category_task_path(params[:category_id],tasks.id), method: :delete, data: { confirm: 'Are you sure?' } ,class:"btn btn-danger btn-sm"%></td>
       </tr>
@@ -27,6 +25,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit nil ,class:"btn btn-primary" %>
   </div>
 <% end %>
