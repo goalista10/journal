@@ -1,3 +1,5 @@
+<h1><%=current_user.categories.find(params[:category_id]).name%> Tasks</h1>
+
 <table class="table table-hover align-middle">
   <thead>
     <tr>
@@ -11,11 +13,15 @@
       <tr>
         <td><%= tasks.name %></td>
         <td><%= link_to 'Edit', edit_category_task_path(params[:category_id],tasks.id),class:"btn btn-warning btn-sm" %></td>
-        <td><%= link_to 'Destroy', category_task_path(params[:category_id],tasks.id), method: :delete, data: { confirm: 'Are you sure?' } ,class:"btn btn-danger btn-sm"%></td>
+        <td><%= link_to 'Finished', category_task_path(params[:category_id],tasks.id), method: :delete, data: { confirm: 'Are you done with this task?' } ,class:"btn btn-success btn-sm"%></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= link_to "Back", :root ,class:"btn btn-secondary btn-sm"%>
+<br />
+<br />
 
 <h1>Add Task</h1>
 <%= form_with model: [@category,@build_task], url: category_tasks_path(params[:category_id]) ,local: true do |form| %>

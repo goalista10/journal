@@ -27,7 +27,7 @@ class TasksController < ApplicationController
     def destroy
         @to_be_deleted = current_user.categories.find(params[:category_id]).tasks.find(params[:id])
         @to_be_deleted.destroy
-        flash.notice = "Task deleted"
+        flash.notice = "Task finished"
         redirect_to category_tasks_path
     end
 
