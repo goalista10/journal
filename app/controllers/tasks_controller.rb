@@ -8,8 +8,11 @@ class TasksController < ApplicationController
 
     def create
         @create_task = current_user.categories.find(params[:category_id]).tasks.build(task_params)
-        @create_task.save
-        flash.notice = "Task created"
+        if @create_task.save
+            flash.notice = "Task created"
+        else
+            flash.notice = "Task name can't be blank"
+        end
         redirect_to category_tasks_path(params[:category_id])
     end
 

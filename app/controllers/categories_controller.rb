@@ -3,8 +3,10 @@ class CategoriesController < ApplicationController
         @create_category = current_user.categories.build(category_params)
         if @create_category.save
             flash.notice = "Category created"
-            redirect_to :root 
+        else
+            flash.notice = "Category name can't be blank"
         end
+        redirect_to :root 
     end
 
     def destroy
