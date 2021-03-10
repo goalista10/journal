@@ -4,7 +4,12 @@ class CategoriesController < ApplicationController
         if @create_category.save
             flash.notice = "Category created"
         else
-            flash.notice = "Category name can't be blank"
+            @error = @create_category.errors.full_messages.first
+            if @error.include? "blank"
+                flash.notice = "Category name can't be blank"
+            else
+                flash.notice = "Category name is redundant"
+            end
         end
         redirect_to :root 
     end

@@ -11,7 +11,12 @@ class TasksController < ApplicationController
         if @create_task.save
             flash.notice = "Task created"
         else
-            flash.notice = "Task name can't be blank"
+            @error = @create_task.errors.full_messages.first
+            if @error.include? "blank"
+                flash.notice = "Task name can't be blank"
+            else
+                flash.notice = "Task name is redundant"
+            end
         end
         redirect_to category_tasks_path(params[:category_id])
     end
