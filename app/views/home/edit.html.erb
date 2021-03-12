@@ -11,4 +11,4 @@
   </div>
 <% end %>
 <br />
-<%= link_to "Back", request.referer.present? ? request.referer : default_path ,class:"btn btn-secondary btn-sm"%>
+<%= link_to "Back", request.referer.present? ? request.referer : :root ,class:"btn btn-secondary btn-sm"%>
