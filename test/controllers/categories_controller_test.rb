@@ -16,14 +16,33 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     post user_session_url
   end
 
-  test "create category " do
+  test "CREATE CATEGORY " do
     @first_user = User.first
     assert_difference '@first_user.categories.count' do
       post categories_path , params: { category: { name: "Test" } }
     end
   end
 
-  test "go to edit category " do
+  test "CREATE CATEGORY FAIL because name cant be EMPTY" do
+    @first_user = User.first
+    assert_no_changes '@first_user.categories.count' do
+      post categories_path , params: { category: { name: "" } }
+    end
+  end
+
+  test "CREATE CATEGORY FAIL because name must be UNIQUE" do
+    @first_user = User.first
+
+    assert_difference '@first_user.categories.count' do
+      post categories_path , params: { category: { name: "Test" } }
+    end
+
+    assert_no_changes '@first_user.categories.count' do
+      post categories_path , params: { category: { name: "Test" } }
+    end
+  end
+
+  test "GO to EDIT CATEGORY " do
     @first_user = User.first
     new_category = @first_user.categories.build(name: "test")
     new_category.save
@@ -32,7 +51,7 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "edit category " do
+  test "EDIT CATEGORY " do
     @first_user = User.first
     new_category = @first_user.categories.build(name: "test")
     new_category.save
@@ -41,7 +60,30 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
   end
 
-  test "delete category " do
+  test "EDIT CATEGORY FAIL because name cant be EMPTY" do
+    @first_user = User.first
+    new_category = @first_user.categories.build(name: "test")
+    new_category.save
+    
+    assert_no_changes '@first_user.categories.find(new_category.id).name' do
+      patch category_path(new_category) , params: { category: { name: "" } }
+    end
+  end
+
+  test "EDIT CATEGORY FAIL because name must be UNIQUE" do
+    @first_user = User.first
+    new_category = @first_user.categories.build(name: "test")
+    new_category.save
+
+    another_category = @first_user.categories.build(name: "test2")
+    another_category.save
+    
+    assert_no_changes '@first_user.categories.find(new_category.id).name' do
+      patch category_path(new_category) , params: { category: { name: "test" } }
+    end
+  end
+
+  test "DELETE CATEGORY " do
     @first_user = User.first
     new_category = @first_user.categories.build(name: "test")
     new_category.save
