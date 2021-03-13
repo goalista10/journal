@@ -25,7 +25,7 @@
 
 <%@form_class = "form-control"%>
 <%if notice%>
-  <%if flash.notice != "Task finished" && flash.notice != "Task created"%>
+  <%if flash.notice.include? "blank" or flash.notice.include? "redundant"%>
     <%@form_class = "form-control is-invalid"%>
   <%end%>
 <%end%>
