@@ -1,6 +1,6 @@
 require "test_helper"
 
-class BlogControllerTest < ActionDispatch::IntegrationTest
+class CategoryControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   test "Go to root " do
@@ -55,9 +55,10 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     @first_user = User.first
     new_category = @first_user.categories.build(name: "test")
     new_category.save
-    
-    patch category_path(new_category) , params: { category: { name: "Test2" } }
-    assert_response :redirect
+
+    assert_changes '@first_user.categories.find(new_category.id).name' do
+      patch category_path(new_category) , params: { category: { name: "test2"} }
+    end
   end
 
   test "EDIT CATEGORY FAIL because name cant be EMPTY" do
@@ -78,8 +79,8 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     another_category = @first_user.categories.build(name: "test2")
     another_category.save
     
-    assert_no_changes '@first_user.categories.find(new_category.id).name' do
-      patch category_path(new_category) , params: { category: { name: "test" } }
+    assert_no_changes '@first_user.categories.find(another_category.id).name' do
+      patch category_path(another_category) , params: { category: { name: "test" } }
     end
   end
 
@@ -88,8 +89,8 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     new_category = @first_user.categories.build(name: "test")
     new_category.save
     
-    delete category_path(new_category)
-    assert_response :redirect
+    assert_difference '@first_user.categories.count', -1 do
+      delete category_path(new_category) 
+    end
   end
-
 end
