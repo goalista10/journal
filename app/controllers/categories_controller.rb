@@ -27,8 +27,11 @@ class CategoriesController < ApplicationController
     end
 
     def update
-        current_user.categories.find(params[:id]).update(category_params)
-        flash.notice = "Category updated"
+        if current_user.categories.find(params[:id]).update(category_params)
+            flash.notice = "Category updated"
+        else
+            flash.notice = "Category already exists"
+        end
         redirect_to :root 
     end
 

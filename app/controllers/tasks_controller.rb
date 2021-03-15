@@ -27,8 +27,11 @@ class TasksController < ApplicationController
     end
 
     def update
-        current_user.categories.find(params[:category_id]).tasks.find(params[:id]).update(task_params)
-        flash.notice = "Task updated"
+        if current_user.categories.find(params[:category_id]).tasks.find(params[:id]).update(task_params)
+            flash.notice = "Task updated"
+        else
+            flash.notice = "Task already exists"
+        end
         redirect_to category_tasks_path
     end
 
