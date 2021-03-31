@@ -27,12 +27,19 @@ class TasksController < ApplicationController
     end
 
     def update
-        if current_user.categories.find(params[:category_id]).tasks.find(params[:id]).update(task_params)
-            flash.notice = "Task updated"
+        @update_task = current_user.categories.find(params[:category_id]).tasks.find(params[:id])
+        if @update_task.update(task_params)
+            flash.notice = "Category updated"
+            redirect_to category_tasks_path
         else
-            flash.notice = "Task already exists"
+            @error = @update_task.errors.full_messages.first
+            if @error.include? "blank"
+                flash.notice = "Task name can't be blank"
+            else
+                flash.notice = "Task name is redundant"
+            end
+            redirect_to edit_category_task_path(params[:category_id],params[:id])
         end
-        redirect_to category_tasks_path
     end
 
     def destroy
