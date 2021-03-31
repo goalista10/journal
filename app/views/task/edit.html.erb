@@ -12,4 +12,4 @@
 <% end %>
 
 <br />
-<%= link_to "Back", request.referer.present? ? request.referer : category_tasks_path(params[:category_id]) ,class:"btn btn-secondary btn-sm"%>
+<%= link_to "Back", category_tasks_path(params[:category_id]) ,class:"btn btn-secondary btn-sm"%>
