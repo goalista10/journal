@@ -27,12 +27,19 @@ class CategoriesController < ApplicationController
     end
 
     def update
-        if current_user.categories.find(params[:id]).update(category_params)
+        @update_category = current_user.categories.find(params[:id])
+        if @update_category.update(category_params)
             flash.notice = "Category updated"
+            redirect_to :root 
         else
-            flash.notice = "Category already exists"
+            @error = @update_category.errors.full_messages.first
+            if @error.include? "blank"
+                flash.notice = "Category name can't be blank"
+            else
+                flash.notice = "Category name is redundant"
+            end
+            redirect_to edit_category_path(params[:id])
         end
-        redirect_to :root 
     end
 
     private
