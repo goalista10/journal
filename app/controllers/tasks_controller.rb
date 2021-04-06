@@ -1,6 +1,10 @@
 class TasksController < ApplicationController
     def index
-        @show_tasks = current_user.categories.find(params[:category_id]).tasks
+        if params[:format]== "yes"
+            @show_tasks = current_user.categories.find(params[:category_id]).tasks.basic_search(params[:query])
+        else
+            @show_tasks = current_user.categories.find(params[:category_id]).tasks
+        end
         @category = current_user.categories.find(params[:category_id])
         @build_task = current_user.categories.find(params[:category_id]).tasks.build
         render "task/index"

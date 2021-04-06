@@ -118,7 +118,7 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
-  config.action_mailer.default_url_options = { :host => 'yourhostsite.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'https://murmuring-falls-87434.herokuapp.com' }
   #config.action_mailer.default_url_options = { :host => "localhost:3000" }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true

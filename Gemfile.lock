@@ -183,7 +183,8 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.2)
+    textacular (5.4.0)
+      activerecord (>= 5.0, < 6.2)
     thor (1.1.0)
     tilt (2.0.10)
     turbolinks (5.2.1)
@@ -231,7 +232,7 @@ DEPENDENCIES
   sass-rails (>= 6)
   selenium-webdriver
   spring
-  sqlite3 (~> 1.4)
+  textacular (~> 5.0)
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 4.1.0)
